@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:zenbil_driver_app/features/auth/screens/forgot_password_screen.dart';
 import 'package:zenbil_driver_app/features/auth/screens/sign_up_screen.dart';
 import '../../../common/network/dio_client.dart';
 import '../../../common/widgets/custom_text_form_field.dart';
@@ -145,7 +146,25 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: GestureDetector(
+                            onTap: () {
+                            Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            RepositoryProvider(
+                                          create: (context) =>
+                                              AuthRepository(dioClient),
+                                          child: BlocProvider(
+                                            create: (context) => AuthBloc(
+                                                RepositoryProvider.of<
+                                                    AuthRepository>(context)),
+                                            child: const ForgotPasswordScreen(),
+                                          ),
+                                        ),
+                                      ));
+                            },
+                            child: Text(
                             "Forget Password?",
                             style: Theme.of(context)
                                 .textTheme
@@ -154,6 +173,7 @@ class LoginScreen extends StatelessWidget {
                                     color: Colors.amber[600],
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 30),

@@ -45,8 +45,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       emit(AuthSuccess(vendorData: result.userInfo));
     } catch (e) {
-      print("this is the e.String ${e.toString()}");
-      if (e.toString() == "Exception: EmailUnverifiedException") {
+      // print("this is the e.String ${e.toSt1ring()}");
+      if (e.toString() == "Exception: [EmailUnverifiedException]") {
         emit(AuthEmailUnverified());
       } else {
         emit(AuthFailure(error: e.toString()));
