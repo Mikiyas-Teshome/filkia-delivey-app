@@ -1,0 +1,79 @@
+name: zenbil_driver_app
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  flutter_localizations: # Required for localization
+    sdk: flutter
+  dio: ^5.7.0
+  shared_preferences: ^2.3.3
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.6
+  google_fonts: ^4.0.0
+  equatable: ^2.0.7
+  flutter_spinkit: ^5.2.1
+  flutter_svg: ^2.0.15
+  flutter_native_splash: ^2.4.4
+  pinput: ^5.0.0
+  image_picker: ^1.1.2
+  socket_io_client: ^3.0.2
+
+  #  Map related staff
+  google_maps_flutter: ^2.10.0
+  flutter_google_places_sdk:
+  geocoding: ^3.0.0
+
+  location:
+  flutter_background_service:
+
+flutter_native_splash:
+  color: "#ffffff"
+  color_dark: "#272727"
+  image: "assets/images/logo.png"
+  image_dark: "assets/images/logoDark.png"
+  android: true
+  ios: true
+  android_12:
+    image: "assets/images/logoAndroid12.png"
+    image_dark: "assets/images/logoDarkAndroid12.png"
+    color: "#ffffff"
+    color_dark: "#272727"
+launcher_name:
+  default: "Flikia Driver App"
+
+icons_launcher:
+  image_path: "assets/images/appIcon.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+
+dev_dependencies:
+
+  icons_launcher: ^3.0.0
+  launcher_name: ^1.0.2
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^4.0.0
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/lang/
