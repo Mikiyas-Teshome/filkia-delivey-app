@@ -26,6 +26,8 @@ class AuthEmailResendSuccess extends AuthState {}
 
 class AuthOtpVerificationSuccess extends AuthState {}
 
+class AuthForgotPasswordSuccess extends AuthState {}
+
 class AuthFailure extends AuthState {
   final String error;
 

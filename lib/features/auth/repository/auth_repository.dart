@@ -95,7 +95,7 @@ class AuthRepository {
         throw Exception(response.data['message'] ?? 'Signup failed');
       }
     } on DioException catch (e) {
-      print("here is the ewrror " + e.toString());
+      print("here is the ewrror $e");
       throw Exception(
           e.response?.data['message'] ?? 'Something went wrong during signup');
     }
@@ -185,6 +185,22 @@ class AuthRepository {
       // Handle other types of errors
       print('[AuthRepository] Unexpected error during token refresh: $e');
       throw Exception('Unexpected error during token refresh: $e');
+    }
+  }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      final response = await _dio.post(
+        '/auth/forgotPassword',
+        data: {"email": email.trim()},
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception(response.data['message'] ?? 'Forgot password failed');
+      }
+    } on DioException catch (e) {
+      throw Exception(e.response?.data['message'] ??
+          'An error occurred during OTP verification');
     }
   }
 }

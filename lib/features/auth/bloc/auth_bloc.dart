@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -19,6 +18,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<EmailResendRequested>(_onEmailResendRequested);
     on<OtpVerifyRequested>(_onOtpVerificationRequested);
     on<LogoutRequested>(_onLogoutRequested);
+    on<ForgotPasswordRequested>(_onForgotPasswordRequested);
+  }
+
+  Future<void> _onForgotPasswordRequested(
+      ForgotPasswordRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    try {
+      await authRepository.forgotPassword(event.email);
+      emit(AuthForgotPasswordSuccess());
+    } catch (e) {
+      emit(AuthFailure(error: e.toString()));
+    }
   }
 
   Future<void> _onLoginRequested(

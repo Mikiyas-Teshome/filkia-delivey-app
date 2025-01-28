@@ -93,3 +93,12 @@ class SignupRequested extends AuthEvent {
 }
 
 class LogoutRequested extends AuthEvent {}
+
+class ForgotPasswordRequested extends AuthEvent {
+  final String email;
+
+  ForgotPasswordRequested({required this.email});
+
+  @override
+  List<Object> get props => [email];
+}
