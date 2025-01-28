@@ -8,7 +8,7 @@ ThemeData darkTheme = ThemeData(
   primarySwatch: Colors.amber, // Primary color scheme
   primaryColor: Colors.amber, // Primary color for widgets like AppBar
   scaffoldBackgroundColor: Colors.black54, // Dark background color
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor: AppConstants.darkBgColor, // AppBar background color
     // foregroundColor: Colors.black, // Text and icon colors for AppBar
   ),

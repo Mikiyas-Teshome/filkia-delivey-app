@@ -3,7 +3,6 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:location/location.dart';
 import 'package:zenbil_driver_app/features/auth/models/login_response.dart';
 
-import '../../../common/service/background_service.dart';
 import '../../../common/service/driver_socket_service.dart';
 
 class HomeViewScreen extends StatefulWidget {

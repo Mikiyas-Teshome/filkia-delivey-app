@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:zenbil_driver_app/features/auth/screens/forgot_password_screen.dart';
 import 'common/blocs/theme_bloc/theme_bloc.dart';
 import 'common/localization/app_localizations.dart';
 import 'common/navigation_service.dart';
@@ -35,8 +36,8 @@ class VendorApp extends StatefulWidget {
   const VendorApp({
     required this.isLoggedIn,
     required this.systemBrightness,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<VendorApp> createState() => _VendorAppState();
@@ -74,7 +75,7 @@ class _VendorAppState extends State<VendorApp> with WidgetsBindingObserver {
             title: 'Flikia Delivery',
             theme: themeState.themeData,
             debugShowCheckedModeBanner: false,
-            localizationsDelegates: [
+            localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
@@ -101,6 +102,7 @@ class _VendorAppState extends State<VendorApp> with WidgetsBindingObserver {
                     create: (_) => HomeNavigationBloc(),
                     child: const HomeScreen(),
                   )
+                // : const ForgotPasswordScreen(),
                 : RepositoryProvider(
                     create: (context) => AuthRepository(dioClient),
                     child: BlocProvider(

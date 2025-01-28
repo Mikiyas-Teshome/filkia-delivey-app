@@ -15,7 +15,7 @@ import 'login_screen.dart';
 
 class OtpEmailVerification extends StatelessWidget {
   final String email;
-  OtpEmailVerification({Key? key, required this.email}) : super(key: key);
+  OtpEmailVerification({super.key, required this.email});
 
   final TextEditingController _otpController = TextEditingController();
 
@@ -26,12 +26,12 @@ class OtpEmailVerification extends StatelessWidget {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
           fontSize: 20,
           color: Color.fromRGBO(30, 60, 87, 1),
           fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
-        border: Border.all(color: AppConstants.primaryColor.withOpacity(0.5)),
+        border: Border.all(color: AppConstants.primaryColor.withValues( alpha: 0.5)),
         borderRadius: BorderRadius.circular(6),
       ),
     );
@@ -43,7 +43,7 @@ class OtpEmailVerification extends StatelessWidget {
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
-        color: Color(0xFFEDDEB1),
+        color: const Color(0xFFEDDEB1),
         borderRadius: BorderRadius.circular(10),
       ),
     );
@@ -54,7 +54,7 @@ class OtpEmailVerification extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                   content:
-                      Text("We have sucessfully sent an email to ${email}.")),
+                      Text("We have sucessfully sent an email to $email.")),
             );
           } else if (state is AuthFailure) {
             _showError(context, message: state.error);
@@ -156,11 +156,11 @@ class OtpEmailVerification extends StatelessWidget {
                                     .textTheme
                                     .bodySmall
                                     ?.color
-                                    ?.withOpacity(0.7)),
+                                    ?.withValues( alpha: 0.7)),
                             children: <TextSpan>[
                               TextSpan(
                                 text: 'Send Again',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.amber,
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.bold,
@@ -195,7 +195,7 @@ class OtpEmailVerification extends StatelessWidget {
                                   ),
                                 );
                           },
-                          child: Text(
+                          child: const Text(
                             'Continue',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
@@ -211,7 +211,7 @@ class OtpEmailVerification extends StatelessWidget {
                 if (state is AuthLoading)
                   Container(
                     height: MediaQuery.of(context).size.height,
-                    color: Colors.black.withOpacity(0.8),
+                    color: Colors.black.withValues( alpha: 0.8),
                     child: const SpinKitCircle(
                       color: Colors.white,
                       size: 60,

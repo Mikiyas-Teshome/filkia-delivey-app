@@ -5,7 +5,7 @@ sealed class ThemeState {
   final ThemeData themeData;
   final bool isSystemDefault; // True if following the system theme.
 
-  ThemeState(this.themeData, this.isSystemDefault);
+  const ThemeState(this.themeData, this.isSystemDefault);
 }
 
 class LightThemeState extends ThemeState {

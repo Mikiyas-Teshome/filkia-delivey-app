@@ -38,7 +38,7 @@ class DriverSocketService {
 
   // Retry socket connection
   void retryConnection(String driverId) {
-    Timer.periodic(Duration(seconds: 5), (timer) {
+    Timer.periodic(const Duration(seconds: 5), (timer) {
       if (!socket.connected) {
         print('Retrying connection...');
         connect(driverId);

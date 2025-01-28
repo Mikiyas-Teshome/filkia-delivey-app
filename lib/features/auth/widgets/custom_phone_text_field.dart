@@ -8,12 +8,12 @@ class CustomPhoneTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
 
   const CustomPhoneTextFormField({
-    Key? key,
+    super.key,
     this.controller,
     this.labelText = 'Phone Number',
     this.countryCode = '+1', // Fixed country code for the USA
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class CustomPhoneTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         floatingLabelBehavior: FloatingLabelBehavior.auto,
-        prefixIcon: Icon(Icons.phone),
+        prefixIcon: const Icon(Icons.phone),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(
@@ -43,7 +43,7 @@ class CustomPhoneTextFormField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.amber,
             width: 1.50,
           ),

@@ -11,14 +11,14 @@ class AddressInputWidget extends StatefulWidget {
   final Function(double latitude, double longitude) onCoordinatesChanged;
 
   const AddressInputWidget({
-    Key? key,
+    super.key,
     required this.apiKey,
     required this.addressController,
     required this.cityController,
     required this.stateController,
     required this.zipCodeController,
     required this.onCoordinatesChanged,
-  }) : super(key: key);
+  });
 
   @override
   _AddressInputWidgetState createState() => _AddressInputWidgetState();
@@ -118,7 +118,7 @@ class _AddressInputWidgetState extends State<AddressInputWidget> {
                 labelText: 'Address',
                 prefixIcon: Icon(
                   Icons.location_on_outlined,
-                  color: theme.iconTheme.color?.withOpacity(0.6),
+                  color: theme.iconTheme.color?.withValues( alpha: 0.6),
                 ),
                 border: _getInputBorder(context),
                 enabledBorder: _getInputBorder(context),
@@ -134,7 +134,7 @@ class _AddressInputWidgetState extends State<AddressInputWidget> {
               alignment: Alignment.topLeft,
               child: Material(
                 elevation: 4.0,
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width - 32,
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
@@ -164,7 +164,7 @@ class _AddressInputWidgetState extends State<AddressInputWidget> {
             labelText: 'City',
             prefixIcon: Icon(
               Icons.location_city_outlined,
-              color: theme.iconTheme.color?.withOpacity(0.6),
+              color: theme.iconTheme.color?.withValues( alpha: 0.6),
             ),
             border: _getInputBorder(context),
             enabledBorder: _getInputBorder(context),
@@ -182,7 +182,7 @@ class _AddressInputWidgetState extends State<AddressInputWidget> {
             labelText: 'State',
             prefixIcon: Icon(
               Icons.map_outlined,
-              color: theme.iconTheme.color?.withOpacity(0.6),
+              color: theme.iconTheme.color?.withValues( alpha: 0.6),
             ),
             border: _getInputBorder(context),
             enabledBorder: _getInputBorder(context),
@@ -200,7 +200,7 @@ class _AddressInputWidgetState extends State<AddressInputWidget> {
             labelText: 'ZIP Code',
             prefixIcon: Icon(
               Icons.local_post_office_outlined,
-              color: theme.iconTheme.color?.withOpacity(0.6),
+              color: theme.iconTheme.color?.withValues( alpha: 0.6),
             ),
             border: _getInputBorder(context),
             enabledBorder: _getInputBorder(context),

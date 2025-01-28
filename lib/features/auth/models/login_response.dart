@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class LoginResponse {
   final String accessToken;

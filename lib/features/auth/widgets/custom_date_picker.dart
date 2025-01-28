@@ -10,14 +10,14 @@ class CustomDatePicker extends StatelessWidget {
   final String? Function(DateTime?)? validator;
 
   const CustomDatePicker({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.prefixIcon,
     required this.selectedDate,
     required this.onDateChanged,
     this.validator,
     required this.dateController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class CustomDatePicker extends StatelessWidget {
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               prefixIcon: Icon(
                 prefixIcon,
-                color: theme.iconTheme.color?.withOpacity(0.6),
+                color: theme.iconTheme.color?.withValues( alpha: 0.6),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),

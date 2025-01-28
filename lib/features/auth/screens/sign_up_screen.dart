@@ -42,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _zipCodeController = TextEditingController();
 
   String? _selectedVehicleType;
-  DateTime? _selectedlicenseExpiry = null;
+  DateTime? _selectedlicenseExpiry;
 
   double? latitude;
   double? longitude;
@@ -127,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         SvgPicture.asset(
@@ -225,9 +225,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   });
                                 },
                                 validator: (date) {
-                                  if (_licenseExpiryController.text == null) {
-                                    return 'Please select license expiry date';
-                                  }
                                   return null;
                                 },
                                 dateController: _licenseExpiryController,
@@ -303,7 +300,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               }
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             'Sign Up',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
@@ -323,11 +320,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     .textTheme
                                     .bodySmall
                                     ?.color
-                                    ?.withOpacity(0.7)),
+                                    ?.withValues( alpha: 0.7)),
                             children: <TextSpan>[
                               TextSpan(
                                 text: 'Sign In',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.amber,
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.bold,
@@ -351,7 +348,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 .textTheme
                                 .bodySmall
                                 ?.color
-                                ?.withOpacity(0.7),
+                                ?.withValues( alpha: 0.7),
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -365,7 +362,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 if (state is AuthLoading)
                   Container(
                     height: MediaQuery.of(context).size.height,
-                    color: Colors.black.withOpacity(0.8),
+                    color: Colors.black.withValues( alpha: 0.8),
                     child: const SpinKitCircle(
                       color: Colors.white,
                       size: 60,

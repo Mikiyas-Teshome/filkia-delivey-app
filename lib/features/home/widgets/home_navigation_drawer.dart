@@ -14,12 +14,12 @@ class HomeNavigationDrawer extends StatelessWidget {
   final VoidCallback onLogout;
 
   const HomeNavigationDrawer({
-    Key? key,
+    super.key,
     required this.driverName,
     required this.driverEmail,
     required this.onLogout,
     required this.data,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class HomeNavigationDrawer extends StatelessWidget {
           UserAccountsDrawerHeader(
             accountName: Text(driverName),
             accountEmail: Text(driverEmail),
-            decoration: BoxDecoration(color: AppConstants.primaryColor),
+            decoration: const BoxDecoration(color: AppConstants.primaryColor),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child: Text(

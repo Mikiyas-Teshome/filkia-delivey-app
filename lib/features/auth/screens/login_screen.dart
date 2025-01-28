@@ -15,7 +15,7 @@ import '../repository/auth_repository.dart';
 import 'otp_email_verification.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
             //   SnackBar(
             //       content: Text(
             //           'Welcome ${state.vendorData.firstName} ${state.vendorData.lastName}!')),
-            // );
+            // );nology
 
             Navigator.pushReplacement(
                 context,
@@ -175,7 +175,7 @@ class LoginScreen extends StatelessWidget {
                                   );
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             'Login',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
@@ -195,11 +195,11 @@ class LoginScreen extends StatelessWidget {
                                     .textTheme
                                     .bodySmall
                                     ?.color
-                                    ?.withOpacity(0.7)),
+                                    ?.withValues( alpha: 0.7)),
                             children: <TextSpan>[
                               TextSpan(
                                 text: 'Sign Up',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.amber,
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.bold,
@@ -219,7 +219,7 @@ class LoginScreen extends StatelessWidget {
                                               create: (context) => AuthBloc(
                                                   RepositoryProvider.of<
                                                       AuthRepository>(context)),
-                                              child: SignUpScreen(),
+                                              child: const SignUpScreen(),
                                             ),
                                           ),
                                         ));
@@ -239,7 +239,7 @@ class LoginScreen extends StatelessWidget {
                                 .textTheme
                                 .bodySmall
                                 ?.color
-                                ?.withOpacity(0.7),
+                                ?.withValues( alpha: 0.7),
                           ),
                           textAlign: TextAlign.center,
                         )
@@ -250,7 +250,7 @@ class LoginScreen extends StatelessWidget {
                 if (state is AuthLoading)
                   Container(
                     height: MediaQuery.of(context).size.height,
-                    color: Colors.black.withOpacity(0.8),
+                    color: Colors.black.withValues( alpha: 0.8),
                     child: const SpinKitCircle(
                       color: Colors.white,
                       size: 60,

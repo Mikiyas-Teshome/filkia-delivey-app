@@ -11,7 +11,7 @@ class CustomTextArea extends StatefulWidget {
   final String? initialValue; // Added for initial value logic
 
   const CustomTextArea({
-    Key? key,
+    super.key,
     this.controller,
     required this.labelText,
     this.isRequired = false, // Default to false for optional fields
@@ -20,7 +20,7 @@ class CustomTextArea extends StatefulWidget {
     this.maxLines = 3, // Default maxLines for a text area
     this.focusNode,
     this.initialValue, // Added initial value parameter
-  }) : super(key: key);
+  });
 
   @override
   _CustomTextAreaState createState() => _CustomTextAreaState();
@@ -84,7 +84,7 @@ class _CustomTextAreaState extends State<CustomTextArea> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.amber,
             width: 1.50,
           ),

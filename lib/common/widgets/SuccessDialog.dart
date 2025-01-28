@@ -8,11 +8,11 @@ class SuccessDialog extends StatelessWidget {
   final String icon;
 
   const SuccessDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

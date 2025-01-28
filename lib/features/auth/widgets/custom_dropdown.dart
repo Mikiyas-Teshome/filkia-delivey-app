@@ -9,14 +9,14 @@ class CustomDropdown<T> extends StatelessWidget {
   final String? Function(T?)? validator;
 
   const CustomDropdown({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.prefixIcon,
     required this.value,
     required this.items,
     required this.onChanged,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class CustomDropdown<T> extends StatelessWidget {
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             prefixIcon: Icon(
               prefixIcon,
-              color: theme.iconTheme.color?.withOpacity(0.6),
+              color: theme.iconTheme.color?.withValues( alpha: 0.6),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
@@ -49,7 +49,7 @@ class CustomDropdown<T> extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.amber,
                 width: 1.50,
               ),

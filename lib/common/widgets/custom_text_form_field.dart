@@ -14,7 +14,7 @@ class CustomTextField extends StatefulWidget {
   final String? initialValue; // Added for initial value logic
 
   const CustomTextField({
-    Key? key,
+    super.key,
     this.controller,
     required this.labelText,
     this.prefixIcon,
@@ -26,7 +26,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLines = 1,
     this.focusNode,
     this.initialValue, // Added initial value parameter
-  }) : super(key: key);
+  });
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -79,7 +79,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         prefixIcon: widget.prefixIcon != null
             ? Icon(widget.prefixIcon,
-                color: theme.iconTheme.color?.withOpacity(0.6))
+                color: theme.iconTheme.color?.withValues( alpha: 0.6))
             : null,
         suffixIcon: widget.isPassword
             ? IconButton(
@@ -110,7 +110,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.amber,
             width: 1.50,
           ),
