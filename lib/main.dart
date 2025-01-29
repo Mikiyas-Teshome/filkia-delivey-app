@@ -132,7 +132,8 @@ class _VendorAppState extends State<VendorApp> with WidgetsBindingObserver {
                     child: BlocProvider(
                       create: (context) => AuthBloc(
                           RepositoryProvider.of<AuthRepository>(context)),
-                      child: LoginScreen(),
+                          child: const ForgotPasswordScreen(),
+                      // child: LoginScreen(),
                     ),
                   ),
           );

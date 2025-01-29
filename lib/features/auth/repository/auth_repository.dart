@@ -191,7 +191,7 @@ class AuthRepository {
   Future<void> forgotPassword(String email) async {
     try {
       final response = await _dio.post(
-        '/auth/forgotPassword',
+        '/auth/forgot-password',
         data: {"email": email.trim()},
       );
 
@@ -200,7 +200,7 @@ class AuthRepository {
       }
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ??
-          'An error occurred during OTP verification');
+          'An error occurred during forgot password');
     }
   }
 }
