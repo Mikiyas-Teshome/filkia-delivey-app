@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -26,7 +28,23 @@ void main() async {
   final Brightness systemBrightness =
       PlatformDispatcher.instance.platformBrightness;
 
-  runApp(VendorApp(isLoggedIn: isLoggedIn, systemBrightness: systemBrightness));
+  runApp(
+    //TODO: Comment this before final release
+    //! added only for dx purposes, between this
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => VendorApp(
+        isLoggedIn: isLoggedIn,
+        systemBrightness: systemBrightness,
+      ),
+    ),
+  //! and this
+  //? real one is this one, uncomment this and comment the above one
+  // VendorApp(
+  //       isLoggedIn: isLoggedIn,
+  //       systemBrightness: systemBrightness,
+  //     ),
+  );
 }
 
 class VendorApp extends StatefulWidget {
@@ -72,6 +90,12 @@ class _VendorAppState extends State<VendorApp> with WidgetsBindingObserver {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, themeState) {
           return MaterialApp(
+            //TODO: Comment this before final release
+            //! added only for dx purposes, between this
+            useInheritedMediaQuery: true,
+            locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
+            //! and this
             title: 'Flikia Delivery',
             theme: themeState.themeData,
             debugShowCheckedModeBanner: false,
@@ -85,7 +109,7 @@ class _VendorAppState extends State<VendorApp> with WidgetsBindingObserver {
               Locale('ar', ''),
             ],
             navigatorKey: navigatorKey,
-            locale: const Locale('en'),
+            // locale: const Locale('en'),
             routes: {
               // When navigating to the "/second" route, build the SecondScreen widget.
               '/login': (context) => RepositoryProvider(

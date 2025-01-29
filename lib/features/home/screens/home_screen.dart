@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:zenbil_driver_app/common/blocs/theme_bloc/theme_bloc.dart';
+import 'package:zenbil_driver_app/common/contants/constants.dart';
+import 'package:zenbil_driver_app/features/home/widgets/delivery_status_card_widget.dart';
+import 'package:zenbil_driver_app/features/home/widgets/order_card_widget.dart';
 import '../../auth/services/auth_service.dart';
 import '../../auth/models/login_response.dart';
 import '../blocs/home_navigation/home_navigation_bloc.dart';
@@ -69,151 +73,180 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       body: SafeArea(
-        child: BlocBuilder<HomeNavigationBloc, HomeNavigationState>(
-          builder: (context, state) {
-            if (state is HomeNavigationLoaded) {
-              return state.screen;
-            }
-            return Column(children: [
-              const SizedBox(
-                height: 10,
-              ),
-              //custom app bar
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                decoration: BoxDecoration(
-                  color: Colors.amber.shade100,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(25.0),
-                  ),
-                ),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Builder(
-                    builder: (context) => IconButton(
-                      icon: const Icon(Icons.menu, size: 30),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                    ),
-                  ),
-                  const Spacer(),
-                  const Center(
-                      child: Text(
-                    ' Dashboard',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-                  const Spacer(),
-                ]),
-              ),
-              //available balance card
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.purple,
-                      Colors.black.withValues(alpha: 0.7),
-                    ],
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(25.0),
-                  ),
-                ),
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 150,
+        child:
+            BlocBuilder<ThemeBloc, ThemeState>(builder: (context, themeState) {
+          bool isDarkTheme = themeState is DarkThemeState;
+
+          return BlocBuilder<HomeNavigationBloc, HomeNavigationState>(
+            builder: (context, state) {
+              if (state is HomeNavigationLoaded) {
+                return state.screen;
+              }
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Avail. Balance',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
+                  children: [
+                    //app bar
+                    Container(
+                      margin: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 15),
+                      decoration: BoxDecoration(
+                        color: isDarkTheme
+                            ? Colors.amber.withValues(alpha: 0.3)
+                            : Colors.amber.shade100,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(35.0),
                         ),
                       ),
-                      const Text(
-                        '\$ 200.00',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Builder(
+                              builder: (context) => IconButton(
+                                icon: const Icon(Icons.menu, size: 30),
+                                onPressed: () {
+                                  Scaffold.of(context).openDrawer();
+                                },
+                              ),
+                            ),
+                          ),
+                          const Center(
+                            child: Text(
+                              'Dashboard',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    //body
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          spacing: 15,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10),
+                            //available balance card
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    AppConstants.primaryColor,
+                                    Color(0xff342500),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(25.0),
+                                ),
+                              ),
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Avail. Balance',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const Text(
+                                      '\$ 200.00',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: SvgPicture.asset(
+                                        'assets/images/logoDark.svg',
+                                        width: 50,
+                                        height: 50,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                            //status cards
+                            GridView.count(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              childAspectRatio: 2.5,
+                              children: const [
+                                DeliveryStatusCardWidget(
+                                  text: "Completed",
+                                  color: Colors.green,
+                                  amount: 20,
+                                ),
+                                DeliveryStatusCardWidget(
+                                  text: "Pending",
+                                  color: Colors.orange,
+                                  amount: 20,
+                                ),
+                                DeliveryStatusCardWidget(
+                                  text: "Canceled",
+                                  color: Colors.red,
+                                  amount: 20,
+                                ),
+                                DeliveryStatusCardWidget(
+                                  text: "Ongoing",
+                                  color: Colors.lightBlue,
+                                  amount: 20,
+                                ),
+                              ],
+                            ),
+                            //orders cards
+                            const Text(
+                              'Orders',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: [
+                                OrderCardWidget(
+                                    borderColor: Colors.yellow,
+                                    isPending: true),
+                                OrderCardWidget(borderColor: Colors.green),
+                                OrderCardWidget(borderColor: Colors.red),
+                                OrderCardWidget(borderColor: Colors.green),
+                                OrderCardWidget(borderColor: Colors.red),
+                                OrderCardWidget(
+                                    borderColor: Colors.yellow,
+                                    isPending: true),
+                                OrderCardWidget(
+                                    borderColor: Colors.yellow,
+                                    isPending: true),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: SvgPicture.asset(
-                          'assets/images/logo.svg',
-                          width: 100,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ]),
-              ),
-              //status cards
-              GridView.count(
-                physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                shrinkWrap: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  crossAxisCount: 2,
-                  children: const [
-                DeliveryStatusCardWidget(
-                  text: "Completed",
-                  color: Colors.green,
-                  amount: 20,
+                    ),
+                  ],
                 ),
-                DeliveryStatusCardWidget(
-                  text: "Pending",
-                  color: Colors.orange,
-                  amount: 20,
-                ),
-                DeliveryStatusCardWidget(
-                  text: "Cancelled",
-                  color: Colors.red,
-                  amount: 20,
-                ),
-                DeliveryStatusCardWidget(
-                  text: "Ongoing",
-                  color: Colors.blue,
-                  amount: 20,
-                ),
-              ])
-            ]);
-          },
-        ),
+              );
+            },
+          );
+        }),
       ),
-    );
-  }
-}
-
-class DeliveryStatusCardWidget extends StatelessWidget {
-  const DeliveryStatusCardWidget({
-    super.key,
-    required this.color,
-    required this.text,
-    required this.amount,
-  });
-  final Color color;
-  final String text;
-  final int amount;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: color.withValues(alpha: 0.2),
-      leading: Icon(Icons.delivery_dining, color: color),
-      title: Text("$text Deliveries"),
-      subtitle: Text(amount.toString()),
     );
   }
 }
