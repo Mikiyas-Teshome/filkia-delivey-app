@@ -65,14 +65,14 @@ class HomeNavigationDrawer extends StatelessWidget {
             leading: const Icon(Icons.inventory),
             title: const Text('Products'),
             onTap: () {
-              context.read<HomeNavigationBloc>().add(
-                    HomeMenuSelected(
-                      screen: DriverLocationScreen(
-                        driverId: data.userInfo.driver!.id,
-                      ),
-                      title: 'Products',
-                    ),
-                  );
+              // context.read<HomeNavigationBloc>().add(
+              //   HomeMenuSelected(
+              //     screen: DriverLocationScreen(
+              //       driverId: data.userInfo.driver!.id,
+              //     ),
+              //     title: 'Products',
+              //   ),
+              // );
               Navigator.of(context).pop(); // Close the drawer
             },
           ),

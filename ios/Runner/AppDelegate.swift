@@ -8,9 +8,10 @@ import UIKit
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-    BackgroundLocationTrackerPlugin.setPluginRegistrantCallback { registry in
-                GeneratedPluginRegistrant.register(with: registry)
-            }
+    UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(15))
+//     BackgroundLocationTrackerPlugin.setPluginRegistrantCallback { registry in
+//                 GeneratedPluginRegistrant.register(with: registry)
+//             }
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

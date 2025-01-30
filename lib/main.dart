@@ -25,11 +25,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 //initialize work manager
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-Workmanager().registerPeriodicTask(
- 'locationTracking',
- 'backgroundTask',
- frequency: const Duration(minutes: 15),
- );
+  Workmanager().registerPeriodicTask(
+    'locationTracking',
+    'backgroundTask',
+    frequency: const Duration(minutes: 15),
+  );
   // Check login state before building the app
   final AuthService authService = AuthService(context: null);
   final bool isLoggedIn = await authService.isLoggedIn();
@@ -58,15 +58,15 @@ Workmanager().registerPeriodicTask(
 }
 
 void callbackDispatcher() {
- Workmanager().executeTask((task, inputData) {
-  if (task == 'backgroundTask') {
-    final DriverSocketService socketService = DriverSocketService();
-    final BackgroundLocationService backgroundLocationService =
-        BackgroundLocationService(socketService);
-    backgroundLocationService.backgroundCallback();
- }
- return Future.value(true);
- });
+  Workmanager().executeTask((task, inputData) {
+    if (task == 'backgroundTask') {
+      final DriverSocketService socketService = DriverSocketService();
+      final BackgroundLocationService backgroundLocationService =
+          BackgroundLocationService(socketService);
+      backgroundLocationService.backgroundCallback();
+    }
+    return Future.value(true);
+  });
 }
 
 class VendorApp extends StatefulWidget {
@@ -155,8 +155,8 @@ class _VendorAppState extends State<VendorApp> with WidgetsBindingObserver {
                       create: (context) => AuthBloc(
                           RepositoryProvider.of<AuthRepository>(context)),
                       // child: const ForgotPasswordScreen(),
-                      // child: LoginScreen(),
-                      child: const DriverLocationScreen(driverId: 'driver1'),
+                      child: LoginScreen(),
+                      // child: const DriverLocationScreen(driverId: 'driver1'),
                     ),
                   ),
           );
