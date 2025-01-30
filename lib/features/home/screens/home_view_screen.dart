@@ -69,6 +69,28 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home View'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Driver: ${widget.data.userInfo.driver!.id}'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Example location data
+                const latitude = 40.7128; // Replace with actual latitude
+                const longitude = -74.0060; // Replace with actual longitude
+                socketService.updateLocation(latitude, longitude);
+              },
+              child: const Text('Update Location'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

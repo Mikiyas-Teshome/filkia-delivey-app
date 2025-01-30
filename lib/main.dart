@@ -5,6 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:workmanager/workmanager.dart';
+import 'package:zenbil_driver_app/common/service/background_service.dart';
+import 'package:zenbil_driver_app/common/service/driver_socket_service.dart';
+import 'package:zenbil_driver_app/features/DriverLocationScreen/DriverLocationScreen.dart';
 import 'package:zenbil_driver_app/features/auth/screens/forgot_password_screen.dart';
 import 'common/blocs/theme_bloc/theme_bloc.dart';
 import 'common/localization/app_localizations.dart';
@@ -19,7 +23,13 @@ import 'features/home/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+//initialize work manager
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+Workmanager().registerPeriodicTask(
+ 'locationTracking',
+ 'backgroundTask',
+ frequency: const Duration(minutes: 15),
+ );
   // Check login state before building the app
   final AuthService authService = AuthService(context: null);
   final bool isLoggedIn = await authService.isLoggedIn();
@@ -31,20 +41,32 @@ void main() async {
   runApp(
     //TODO: Comment this before final release
     //! added only for dx purposes, between this
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => VendorApp(
-        isLoggedIn: isLoggedIn,
-        systemBrightness: systemBrightness,
-      ),
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) => VendorApp(
+    //     isLoggedIn: isLoggedIn,
+    //     systemBrightness: systemBrightness,
+    //   ),
+    // ),
+    //! and this
+    //? real one is this one, uncomment this and comment the above one
+    VendorApp(
+      isLoggedIn: isLoggedIn,
+      systemBrightness: systemBrightness,
     ),
-  //! and this
-  //? real one is this one, uncomment this and comment the above one
-  // VendorApp(
-  //       isLoggedIn: isLoggedIn,
-  //       systemBrightness: systemBrightness,
-  //     ),
   );
+}
+
+void callbackDispatcher() {
+ Workmanager().executeTask((task, inputData) {
+  if (task == 'backgroundTask') {
+    final DriverSocketService socketService = DriverSocketService();
+    final BackgroundLocationService backgroundLocationService =
+        BackgroundLocationService(socketService);
+    backgroundLocationService.backgroundCallback();
+ }
+ return Future.value(true);
+ });
 }
 
 class VendorApp extends StatefulWidget {
@@ -92,9 +114,9 @@ class _VendorAppState extends State<VendorApp> with WidgetsBindingObserver {
           return MaterialApp(
             //TODO: Comment this before final release
             //! added only for dx purposes, between this
-            useInheritedMediaQuery: true,
-            locale: DevicePreview.locale(context),
-            builder: DevicePreview.appBuilder,
+            // useInheritedMediaQuery: true,
+            // locale: DevicePreview.locale(context),
+            // builder: DevicePreview.appBuilder,
             //! and this
             title: 'Flikia Delivery',
             theme: themeState.themeData,
@@ -132,8 +154,9 @@ class _VendorAppState extends State<VendorApp> with WidgetsBindingObserver {
                     child: BlocProvider(
                       create: (context) => AuthBloc(
                           RepositoryProvider.of<AuthRepository>(context)),
-                          child: const ForgotPasswordScreen(),
+                      // child: const ForgotPasswordScreen(),
                       // child: LoginScreen(),
+                      child: const DriverLocationScreen(driverId: 'driver1'),
                     ),
                   ),
           );

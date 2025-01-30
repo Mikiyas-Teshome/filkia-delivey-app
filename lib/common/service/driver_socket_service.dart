@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -8,6 +9,17 @@ class DriverSocketService {
   late IO.Socket socket;
   final Location location = Location();
   StreamSubscription<LocationData>? locationSubscription;
+
+  // // Private constructor
+  // DriverSocketService._();
+
+  // // instance
+  // static final DriverSocketService _instance = DriverSocketService._();
+
+  // // Factory constructor to return the singleton instance
+  // factory DriverSocketService() {
+  //   return _instance;
+  // }
 
   // Initialize the socket connection
   void connect(String driverId) {
@@ -22,17 +34,17 @@ class DriverSocketService {
 
     // Handle socket events
     socket.onConnect((_) {
-      print('Connected to the socket server as driver $driverId');
+      debugPrint('Connected to the socket server as driver $driverId');
       registerDriver(driverId);
     });
 
     socket.onDisconnect((_) {
-      print('Disconnected from the socket server, attempting to reconnect...');
+      debugPrint('Disconnected from the socket server, attempting to reconnect...');
       retryConnection(driverId);
     });
 
     socket.on('location:update', (data) {
-      print('Location Update: $data');
+      debugPrint('Location Update: $data');
     });
   }
 
@@ -40,7 +52,7 @@ class DriverSocketService {
   void retryConnection(String driverId) {
     Timer.periodic(const Duration(seconds: 5), (timer) {
       if (!socket.connected) {
-        print('Retrying connection...');
+        debugPrint('Retrying connection...');
         connect(driverId);
       } else {
         timer.cancel();
@@ -83,11 +95,13 @@ class DriverSocketService {
         location.onLocationChanged.listen((LocationData currentLocation) async {
       if (currentLocation.latitude != null &&
           currentLocation.longitude != null) {
-        print(
+        debugPrint(
             'Location Changed: ${currentLocation.latitude}, ${currentLocation.longitude}');
         updateLocation(currentLocation.latitude!, currentLocation.longitude!);
       }
-    });
+    },
+    onDone: () => debugPrint('Location tracking stopped.'),
+    onError: (error) => debugPrint('Location tracking error: $error'));
   }
 
   // Stop location tracking

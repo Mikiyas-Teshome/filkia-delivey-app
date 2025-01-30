@@ -6,13 +6,19 @@ class BackgroundLocationService {
   BackgroundLocationService(this.socketService);
   @pragma('vm:entry-point')
   void backgroundCallback() {
-    // BackgroundLocationTrackerManager.handleBackgroundUpdated(
-    //   // (data) async => Repo().update(data),
-    // );
+    socketService.location.changeSettings(interval: 1000);
+    socketService.locationSubscription = socketService.location.onLocationChanged.listen((locationData) {
+      socketService.updateLocation(locationData.latitude!, locationData.longitude!);
+    });
   }
 
-  // Future<void> stopLocationTracking() async {
-  //   await BackgroundLocationTrackerManager.stopLocationService();
-  //   print("Location tracking stopped.");
-  // }
+  @pragma('vm:entry-point')
+  void stopBackgroundCallback() {
+    socketService.locationSubscription?.cancel();
+  }
+
+  @pragma('vm:entry-point')
+  void registerDriver(String driverId) {
+    socketService.socket.emit('driver:register', {'driverId': driverId});
+  }
 }
