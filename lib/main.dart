@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +7,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:zenbil_driver_app/common/service/background_service.dart';
 import 'package:zenbil_driver_app/common/service/driver_socket_service.dart';
-import 'package:zenbil_driver_app/features/DriverLocationScreen/DriverLocationScreen.dart';
-import 'package:zenbil_driver_app/features/auth/screens/forgot_password_screen.dart';
 import 'common/blocs/theme_bloc/theme_bloc.dart';
 import 'common/localization/app_localizations.dart';
 import 'common/navigation_service.dart';
@@ -23,13 +20,11 @@ import 'features/home/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
 //initialize work manager
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  Workmanager().registerPeriodicTask(
-    'locationTracking',
-    'backgroundTask',
-    frequency: const Duration(minutes: 15),
-  );
+
+
   // Check login state before building the app
   final AuthService authService = AuthService(context: null);
   final bool isLoggedIn = await authService.isLoggedIn();
@@ -57,6 +52,7 @@ void main() async {
   );
 }
 
+@pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) {
     if (task == 'backgroundTask') {
@@ -64,8 +60,9 @@ void callbackDispatcher() {
       final BackgroundLocationService backgroundLocationService =
           BackgroundLocationService(socketService);
       backgroundLocationService.backgroundCallback();
+    debugPrint('Background task executed');
     }
-    return Future.value(true);
+      return Future.value(true);
   });
 }
 

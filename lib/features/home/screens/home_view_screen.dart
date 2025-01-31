@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:location/location.dart';
-import 'package:zenbil_driver_app/features/auth/models/login_response.dart';
-
-import '../../../common/service/driver_socket_service.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:zenbil_driver_app/common/blocs/theme_bloc/theme_bloc.dart';
+import 'package:location/location.dart';
+import 'package:workmanager/workmanager.dart';
+
 import 'package:zenbil_driver_app/common/contants/constants.dart';
+import 'package:zenbil_driver_app/features/auth/models/login_response.dart';
 import 'package:zenbil_driver_app/features/home/widgets/delivery_status_card_widget.dart';
 import 'package:zenbil_driver_app/features/home/widgets/order_card_widget.dart';
+
+import '../../../common/service/driver_socket_service.dart';
 import '../../auth/services/auth_service.dart';
-import '../../auth/models/login_response.dart';
-import '../blocs/home_navigation/home_navigation_bloc.dart';
 import '../widgets/home_navigation_drawer.dart';
 
 class HomeViewScreen extends StatefulWidget {
@@ -25,7 +22,6 @@ class HomeViewScreen extends StatefulWidget {
 }
 
 class _HomeViewScreenState extends State<HomeViewScreen> {
-  // final DriverSocketService socketService = DriverSocketService();
   final location = Location();
 
   late DriverSocketService socketService;
@@ -36,6 +32,11 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
     initializeLocationService();
     socketService = DriverSocketService();
     socketService.connect(widget.data.userInfo.id);
+    Workmanager().registerPeriodicTask(
+    'locationTracking',
+    'backgroundTask',
+    frequency: const Duration(minutes: 15),
+  );
   }
 
   @override
@@ -54,7 +55,6 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
   Future<void> initializeLocationService() async {
     // Check and request location permissions
     await ensureLocationServiceEnabled();
-
     FlutterBackgroundService().startService();
     String driverId = widget.data.userInfo.driver!.id;
     socketService.connect(driverId);
@@ -106,7 +106,7 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: const Size.fromHeight(80),
           child: Container(
             margin: const EdgeInsets.only(top: 5, left: 15, right: 15),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -127,14 +127,14 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
                     Scaffold.of(context).openDrawer();
                   },
                 ),
-                Text(
+                const Text(
                   'Dashboard',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 36,
                 )
               ],

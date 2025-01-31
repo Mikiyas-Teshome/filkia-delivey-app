@@ -9,11 +9,11 @@ sealed class ThemeState {
 }
 
 class LightThemeState extends ThemeState {
-  LightThemeState(ThemeData themeData, {bool isSystemDefault = false})
+  const LightThemeState(ThemeData themeData, {bool isSystemDefault = false})
       : super(themeData, isSystemDefault);
 }
 
 class DarkThemeState extends ThemeState {
-  DarkThemeState(ThemeData themeData, {bool isSystemDefault = false})
+  const DarkThemeState(ThemeData themeData, {bool isSystemDefault = false})
       : super(themeData, isSystemDefault);
 }

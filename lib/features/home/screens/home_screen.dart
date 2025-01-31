@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:zenbil_driver_app/common/blocs/theme_bloc/theme_bloc.dart';
-import 'package:zenbil_driver_app/common/contants/constants.dart';
 import 'package:zenbil_driver_app/features/home/screens/home_view_screen.dart';
-import 'package:zenbil_driver_app/features/home/widgets/delivery_status_card_widget.dart';
-import 'package:zenbil_driver_app/features/home/widgets/order_card_widget.dart';
 import '../../auth/services/auth_service.dart';
 import '../../auth/models/login_response.dart';
 import '../blocs/home_navigation/home_navigation_bloc.dart';

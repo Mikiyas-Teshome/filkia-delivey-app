@@ -1,38 +1,24 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:zenbil_driver_app/common/contants/constants.dart';
 
 class DriverSocketService {
-  late IO.Socket socket;
+  late io.Socket socket;
   final Location location = Location();
   StreamSubscription<LocationData>? locationSubscription;
 
-  // // Private constructor
-  // DriverSocketService._();
-
-  // // instance
-  // static final DriverSocketService _instance = DriverSocketService._();
-
-  // // Factory constructor to return the singleton instance
-  // factory DriverSocketService() {
-  //   return _instance;
-  // }
-
-  // Initialize the socket connection
   void connect(String driverId) {
-    socket = IO.io(
-      AppConstants.baseUrl, // Replace with your backend IP
-      IO.OptionBuilder()
+    socket = io.io(
+      AppConstants.baseUrl,
+      io.OptionBuilder()
           .setTransports(['websocket'])
           .enableAutoConnect()
           .setQuery({'driverId': driverId})
           .build(),
     );
 
-    // Handle socket events
     socket.onConnect((_) {
       debugPrint('Connected to the socket server as driver $driverId');
       registerDriver(driverId);
@@ -48,31 +34,6 @@ class DriverSocketService {
     });
   }
 
-  // Retry socket connection
-  void retryConnection(String driverId) {
-    Timer.periodic(const Duration(seconds: 5), (timer) {
-      if (!socket.connected) {
-        debugPrint('Retrying connection...');
-        connect(driverId);
-      } else {
-        timer.cancel();
-      }
-    });
-  }
-
-  // Register the driver
-  void registerDriver(String driverId) {
-    socket.emit('driver:register', {'driverId': driverId});
-  }
-
-  // Update the driver's location
-  void updateLocation(double latitude, double longitude) {
-    socket.emit('driver:updateLocation', {
-      'location': {'latitude': latitude, 'longitude': longitude}
-    });
-  }
-
-  // Start location tracking
   void startLocationTracking(String driverId) async {
     bool serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
@@ -88,28 +49,42 @@ class DriverSocketService {
 
     location.changeSettings(
       accuracy: LocationAccuracy.high,
-      distanceFilter: 100, // Update only if the location changes by 100 meters
+      distanceFilter: 100,
     );
 
-    locationSubscription =
-        location.onLocationChanged.listen((LocationData currentLocation) async {
-      if (currentLocation.latitude != null &&
-          currentLocation.longitude != null) {
-        debugPrint(
-            'Location Changed: ${currentLocation.latitude}, ${currentLocation.longitude}');
+    locationSubscription = location.onLocationChanged.listen((LocationData currentLocation) {
+      if (currentLocation.latitude != null && currentLocation.longitude != null) {
+        debugPrint('Location Changed: ${currentLocation.latitude}, ${currentLocation.longitude}');
         updateLocation(currentLocation.latitude!, currentLocation.longitude!);
       }
-    },
-    onDone: () => debugPrint('Location tracking stopped.'),
-    onError: (error) => debugPrint('Location tracking error: $error'));
+    });
   }
 
-  // Stop location tracking
   void stopLocationTracking() {
     locationSubscription?.cancel();
   }
 
-  // Disconnect the socket
+  void updateLocation(double latitude, double longitude) {
+    socket.emit('driver:updateLocation', {
+      'location': {'latitude': latitude, 'longitude': longitude}
+    });
+  }
+
+  void registerDriver(String driverId) {
+    socket.emit('driver:register', {'driverId': driverId});
+  }
+
+  void retryConnection(String driverId) {
+    Timer.periodic(const Duration(seconds: 5), (timer) {
+      if (!socket.connected) {
+        debugPrint('Retrying connection...');
+        connect(driverId);
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
   void disconnect() {
     stopLocationTracking();
     socket.disconnect();
