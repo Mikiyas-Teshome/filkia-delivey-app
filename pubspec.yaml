@@ -39,7 +39,6 @@ dependencies:
   flutter_background_service:
   responsive_builder: ^0.7.1
   device_preview: ^1.2.0
-  workmanager: ^0.5.2
 
 flutter_native_splash:
   color: "#ffffff"

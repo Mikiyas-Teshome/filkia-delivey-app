@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:location/location.dart';
-import 'package:workmanager/workmanager.dart';
 
 import 'package:zenbil_driver_app/common/contants/constants.dart';
 import 'package:zenbil_driver_app/features/auth/models/login_response.dart';
@@ -32,11 +31,7 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
     initializeLocationService();
     socketService = DriverSocketService();
     socketService.connect(widget.data.userInfo.id);
-    Workmanager().registerPeriodicTask(
-    'locationTracking',
-    'backgroundTask',
-    frequency: const Duration(minutes: 15),
-  );
+
   }
 
   @override
