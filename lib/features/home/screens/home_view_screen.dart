@@ -28,10 +28,7 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
   @override
   void initState() {
     super.initState();
-    initializeLocationService();
-    socketService = DriverSocketService();
-    socketService.connect(widget.data.userInfo.id);
-
+    initializeSocketService();
   }
 
   @override
@@ -40,46 +37,12 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
     super.dispose();
   }
 
-  void _updateLocation() {
-    // Example location data
-    const latitude = 40.7128; // Replace with actual latitude
-    const longitude = -74.0060; // Replace with actual longitude
-    socketService.updateLocation(latitude, longitude);
-  }
+  Future<void> initializeSocketService() async {
+    socketService = DriverSocketService();
+    socketService.connect(widget.data.userInfo.driver!.id);
 
-  Future<void> initializeLocationService() async {
-    // Check and request location permissions
-    await ensureLocationServiceEnabled();
+    // Start the background service
     FlutterBackgroundService().startService();
-    String driverId = widget.data.userInfo.driver!.id;
-    socketService.connect(driverId);
-    socketService.startLocationTracking(driverId);
-    // await BackgroundService().initialize();
-    FlutterBackgroundService().invoke('driverId', {'driverId': driverId});
-  }
-
-  Future<void> ensureLocationServiceEnabled() async {
-    final location = Location();
-
-    // Ensure the location service is enabled
-    bool serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        throw Exception('Location services are disabled.');
-      }
-    }
-
-    // Ensure location permissions are granted
-    PermissionStatus permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        throw Exception('Location permission not granted.');
-      }
-    }
-
-    print('Location services and permissions are enabled.');
   }
 
   // @override

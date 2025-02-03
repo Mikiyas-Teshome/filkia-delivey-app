@@ -6,8 +6,6 @@ import 'package:zenbil_driver_app/common/contants/constants.dart';
 
 class DriverSocketService {
   late io.Socket socket;
-  final Location location = Location();
-  StreamSubscription<LocationData>? locationSubscription;
 
   void connect(String driverId) {
     socket = io.io(
@@ -34,36 +32,6 @@ class DriverSocketService {
     });
   }
 
-  void startLocationTracking(String driverId) async {
-    bool serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) return;
-    }
-
-    PermissionStatus permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) return;
-    }
-
-    location.changeSettings(
-      accuracy: LocationAccuracy.high,
-      distanceFilter: 100,
-    );
-
-    locationSubscription = location.onLocationChanged.listen((LocationData currentLocation) {
-      if (currentLocation.latitude != null && currentLocation.longitude != null) {
-        debugPrint('Location Changed: ${currentLocation.latitude}, ${currentLocation.longitude}');
-        updateLocation(currentLocation.latitude!, currentLocation.longitude!);
-      }
-    });
-  }
-
-  void stopLocationTracking() {
-    locationSubscription?.cancel();
-  }
-
   void updateLocation(double latitude, double longitude) {
     socket.emit('driver:updateLocation', {
       'location': {'latitude': latitude, 'longitude': longitude}
@@ -86,7 +54,6 @@ class DriverSocketService {
   }
 
   void disconnect() {
-    stopLocationTracking();
     socket.disconnect();
   }
 }

@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:zenbil_driver_app/common/service/background_service.dart';
+import 'package:location/location.dart';
 import 'package:zenbil_driver_app/common/service/driver_socket_service.dart';
 import 'common/blocs/theme_bloc/theme_bloc.dart';
 import 'common/localization/app_localizations.dart';
@@ -41,6 +39,11 @@ Future<void> initializeService() async {
       onStart: onStart,
       autoStart: true,
       isForegroundMode: true,
+      // notificationChannelId: 'driver_location_tracker',
+      initialNotificationTitle: 'Driver Location Tracking',
+      initialNotificationContent: 'Tracking driver location in real-time',
+      foregroundServiceTypes: [AndroidForegroundType.location],
+      // foregroundServiceNotificationId: 1212,
     ),
     iosConfiguration: IosConfiguration(
       autoStart: true,
@@ -60,25 +63,53 @@ Future<bool> onIosBackground(ServiceInstance service) async {
 @pragma('vm:entry-point')
 void onStart(ServiceInstance service) async {
   DartPluginRegistrant.ensureInitialized();
-  final DriverSocketService socketService = DriverSocketService();
-  final BackgroundLocationService backgroundLocationService = BackgroundLocationService(DriverSocketService());
-  backgroundLocationService.registerDriver(socketService.socket.id!);
-  socketService.location.changeSettings(interval: 1000);
+  final socketService = DriverSocketService();
+  final location = Location();
 
-  Timer.periodic(const Duration(seconds: 1), (timer) async {
-    debugPrint('FLUTTER BACKGROUND SERVICE: ${DateTime.now()}');
+  // Initialize location settings
+  await location.changeSettings(
+    accuracy: LocationAccuracy.high,
+    interval: 1000, // 1 second
+    // distanceFilter: 10, // Update every 10 meters
+  );
 
-    // Replace with actual location data
-    const latitude = 40.7128;
-    const longitude = -74.0060;
-    socketService.updateLocation(latitude, longitude);
+  // Ensure location services are enabled
+  bool serviceEnabled = await location.serviceEnabled();
+  if (!serviceEnabled) {
+    serviceEnabled = await location.requestService();
+    if (!serviceEnabled) return;
+  }
 
-    service.invoke(
-      'update',
-      {
-        "current_date": DateTime.now().toIso8601String(),
-      },
-    );
+  // Ensure location permissions are granted
+  PermissionStatus permissionGranted = await location.hasPermission();
+  if (permissionGranted == PermissionStatus.denied) {
+    permissionGranted = await location.requestPermission();
+    if (permissionGranted != PermissionStatus.granted) return;
+  }
+
+  // Enable background location mode
+  location.enableBackgroundMode(enable: true);
+
+  // Listen to location updates
+  location.onLocationChanged.listen((LocationData currentLocation) async {
+    if (currentLocation.latitude != null && currentLocation.longitude != null) {
+      debugPrint('Location Update: ${currentLocation.latitude}, ${currentLocation.longitude}');
+      // Update location via socket
+      socketService.updateLocation(currentLocation.latitude!, currentLocation.longitude!);
+
+      // Send data to the UI (optional)
+      service.invoke('update', {
+        'latitude': currentLocation.latitude,
+        'longitude': currentLocation.longitude,
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+    }
+  });
+
+  // Handle service stop event
+  service.on('stopService').listen((event) {
+    location.enableBackgroundMode(enable: false);
+    service.stopSelf();
   });
 }
 
