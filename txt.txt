@@ -1,0 +1,321 @@
+ 1210  firebase login
+ 1211  dart pub global activate flutterfire_cli
+ 1212  cat ~/.zshrc
+ 1213  clear
+ 1214  flutterfire configure --project=zygig-shop
+ 1215  clear
+ 1216  exit
+ 1217  clear
+ 1218  git config pull.rebase true
+ 1219  flutter --version
+ 1220  clear
+ 1221  exit
+ 1222  clear
+ 1223  cleasr
+ 1224  clear
+ 1225  flutter build apk
+ 1226  clear
+ 1227  flutter build apk
+ 1228  sudo apt install flameshot
+ 1229  clear
+ 1230  nautilus
+ 1231  nautilus .
+ 1232  flutter build apk --split-per-abi
+ 1233  sudo apt install foliate
+ 1234  cd Downloads/Telegram\ Desktop/
+ 1235  foliate Flutter_Engineering_Copyright_2024_Majid_Hajian_Z_Library.epub
+ 1236  exit
+ 1237  tldr cc
+ 1238  tldr gcc
+ 1239  exit
+ 1240  xit
+ 1241  exit
+ 1242  flameshot gui
+ 1243  exit
+ 1244  clear
+ 1245  sudo add-apt-repository ppa:obsproject/obs-studio
+ 1246  sudo apt install obs-studio
+ 1247  obs
+ 1248  clear
+ 1249  exit
+ 1250  sudo apt update && sudo apt install warp-terminal && warp_finish_update 3E3v8ZP
+ 1251  exit
+ 1252  clear
+ 1253  exit
+ 1254  wakeuptime-bpfcc
+ 1255  wakeuptime
+ 1256  clear
+ 1257  exit
+ 1258  clear
+ 1259  install bun
+ 1260  sudo apt install bun
+ 1261  sudo apt update
+ 1262  what does apt-transport-https do
+ 1263  curl -fsSL https://bun.sh/install | bash
+ 1264  bun --version
+ 1265  bunzip2 --version
+ 1266  exec /usr/bin/zsh
+ 1267  bun --version
+ 1268  exit
+ 1269  bun --version
+ 1270  clear
+ 1271  cd Dev/
+ 1272  l
+ 1273  cd js
+ 1274  l
+ 1275  git clone https://github.com/dagmawibabi/TelegramToPDF.git
+ 1276  bun --version
+ 1277  git clone https://github.com/dagmawibabi/TelegramToPDF.git
+ 1278  cleaer
+ 1279  exit
+ 1280  git clone https://github.com/dagmawibabi/TelegramToPDF.git
+ 1281  history 10
+ 1282  history | tail -n 10
+ 1283  git clone https://github.com/dagmawibabi/TelegramToPDF.git
+ 1284  git clone --depth=1 https://github.com/dagmawibabi/TelegramToPDF.git
+ 1285  git config --list && echo "=== Git Version ===" && git --version && echo "=== Curl Version ===" && curl --version
+ 1286  git config --global http.version HTTP/1.1 && git config --global http.postBuffer 524288000 && echo "Configuration updated. Retrying clone..."
+ 1287  git clone --depth=1 https://github.com/dagmawibabi/TelegramToPDF.git
+ 1288  ping -c 4 github.com && echo "=== DNS Lookup ===" && dig github.com && echo "=== Direct HTTPS test ===" && curl -I https://github.com/dagmawibabi/TelegramToPDF.git
+ 1289  bun install
+ 1290  exit
+ 1291  bun run main.js
+ 1292  exit
+ 1293  clear
+ 1294  cd Downloads
+ 1295  sudo apt install ./discord-0.0.78.deb
+ 1296  clear
+ 1297  exit
+ 1298  clear
+ 1299  dart pub get
+ 1300  clear
+ 1301  flutter clean\nflutter pub get\nflutter build apk
+ 1302  clear
+ 1303  flutter clean\nflutter pub get\nflutter build apk
+ 1304  java --version
+ 1305  exit
+ 1306  rustc --version
+ 1307  flutter doctor
+ 1308  exit
+ 1309  sudo apt install atuin
+ 1310  man atuin
+ 1311  tldr atuin
+ 1312  clear
+ 1313  curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+ 1314  exit
+ 1315  uptime
+ 1316  uptime -p
+ 1317  uptime -s
+ 1318  uptime -p
+ 1319  clear
+ 1320  tldr atuin
+ 1321  history | tail -n 10
+ 1322  history | tail -n 30
+ 1323  exit
+ 1324  clear
+ 1325  exit
+ 1326  cd Downloads
+ 1327  tldr apt
+ 1328  sudo apt update && sudo apt upgrade
+ 1329  exit
+ 1330  sudo apt-get install libayatana-appindicator3-dev
+ 1331  clear
+ 1332  exit
+ 1333  keyviz
+ 1334  cd Downloads
+ 1335  extract keyviz-v2.0.0a2-linux.zip
+ 1336  clear
+ 1337  exit
+ 1338  git config pull.rebase false
+ 1339  cd
+ 1340  cd Home
+ 1341  ls
+ 1342  cd Flutter
+ 1343  ls
+ 1344  clear
+ 1345  cd flutter/packages/flutter
+ 1346  clear
+ 1347  git config pull.rebase false
+ 1348  clear
+ 1349  git config pull.rebase true
+ 1350  flutter upgrade
+ 1351  git status
+ 1352  git status -z -uall
+ 1353  clear
+ 1354  exit
+ 1355  man print
+ 1356  tldr print
+ 1357  exit
+ 1358  sudo apt update && sudo apt install warp-terminal && warp_finish_update yk6pzYW
+ 1359  clear
+ 1360  exit
+ 1361  clear
+ 1362  cleadr
+ 1363  clear
+ 1364  flutter run --info
+ 1365  cd android
+ 1366  gradlew clean
+ 1367  gradlew c
+ 1368  gradlew clean
+ 1369  ./gradlew clean
+ 1370  gradlew build
+ 1371  ./gradlew build
+ 1372  cd ..o
+ 1373  flutter run --info
+ 1374  flutter run
+ 1375  clear
+ 1376  npm -v
+ 1377  node -v
+ 1378  node --update
+ 1379  nvm ls
+ 1380  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+ 1381  source ~/.bashrc
+ 1382  nvm ls
+ 1383  ./nvm ls
+ 1384  nvm install node
+ 1385  node -v\nnpm -v
+ 1386  sudo apt remove nodejs
+ 1387  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+ 1388  sudo apt install -y nodejs
+ 1389  node -v\nnpm -v
+ 1390  clear
+ 1391  exit
+ 1392  cd Dev/nodejs
+ 1393  ls
+ 1394  mkdir tracking-BE
+ 1395  npm init -y
+ 1396  less package.json
+ 1397  npm install express socket.io
+ 1398  const express = require('express');\nconst http = require('http');\nconst socketIo = require('socket.io');\n\nconst PORT = process.env.PORT || 4001;\n\nconst app = express();\napp.use(express.static('public'));\n\nconst server = http.createServer(app);\nconst io = socketIo(server);\n\nio.on('connection', (socket) => {\n  console.log('Client connected');\n\n  socket.on('sendLocation', (data) => {\n    console.log('Received location:', data);\n    io.emit('changeLocation', data);\n  });\n\n  socket.on('disconnect', () => {\n    console.log('Client disconnected');\n  });\n});\n\nserver.listen(PORT, () => console.log(`Listening on port ${PORT}`));q
+ 1399  clear
+ 1400  ls
+ 1401  cd tracking-BE
+ 1402  npm init -y
+ 1403  npm install express socket.io
+ 1404  cd ..
+ 1405  ls
+ 1406  cd tracking-BE
+ 1407  code .
+ 1408  cd ..
+ 1409  node index.js
+ 1410  cd
+ 1411  free -h
+ 1412  swapon --show
+ 1413  node index.js
+ 1414  exit
+ 1415  node index.js
+ 1416  node socket.io/socket.io.js
+ 1417  clear
+ 1418  node socket.io/socket.io.js
+ 1419  adb shell getprop ro.build.version.release
+ 1420  ./adb shell getprop ro.build.version.release
+ 1421  adb shell getprop ro.build.version.release
+ 1422  cd android
+ 1423  ./gradlew clean
+ 1424  ./gradlew build
+ 1425  clear
+ 1426  curl http://ouo.io/qs/jdaLdBC7\?s\=http://zofile.com/xvu155c50vui/VH-29407656-V2.rar-fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+ 1427  curl http://ouo.io/qs/jdaLdBC7\?s\=http://zofile.com/xvu155c50vui/VH-29407656-V2.rar
+ 1428  wget http://ouo.io/qs/jdaLdBC7\?s\=http://zofile.com/xvu155c50vui/VH-29407656-V2.rar
+ 1429  wget http://zofile.com/xvu155c50vui/VH-29407656-V2.rar
+ 1430  curl http://zofile.com/xvu155c50vui/VH-29407656-V2.rar
+ 1431  clear
+ 1432  cd android
+ 1433  ./gradlew clean
+ 1434  ./gradlew build
+ 1435  cd Downloads
+ 1436  sudo apt install ./discord-0.0.82.deb
+ 1437  exit
+ 1438  code -v
+ 1439  clear
+ 1440  exit
+ 1441  clear
+ 1442  exit
+ 1443  clear
+ 1444  cd android
+ 1445  ./gradlew clean && ./gradlew build
+ 1446  node socket.io/socket.io.js
+ 1447  ifconfig
+ 1448  node socket.io/socket.io.js
+ 1449  git init --main
+ 1450  git init
+ 1451  git branch -m main
+ 1452  git branch
+ 1453  node socket.io/socket.io.js
+ 1454  clear
+ 1455  git clone https://github.com/canopas/group-track-flutter.git /home/ragoose/Dev/Flutter/group-track-flutter --progress
+ 1456  clear
+ 1457  cd android &&\n\ncl
+ 1458  clear
+ 1459  pwd
+ 1460  clear
+ 1461  ./gradlew clean && ./gradlew build
+ 1462  clear
+ 1463  cd android
+ 1464  pwd
+ 1465  cd LabelStoreMax
+ 1466  cd android
+ 1467  ./gradlew clean && ./gradlew build
+ 1468  curl -fsSL https://fvm.app/install.sh | bash
+ 1469  cd android
+ 1470  ./gradlew clean && ./gradlew build
+ 1471  clear
+ 1472  cd
+ 1473  clear
+ 1474  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+ 1475  . "$HOME/.cargo/env"
+ 1476  clear
+ 1477  exit
+ 1478  cargo -v
+ 1479  cargo --v
+ 1480  cargo -V
+ 1481  clear
+ 1482  cargo install spotify-player
+ 1483  rustup update
+ 1484  sudo apt install libssl-dev libasound2-dev libdbus-1-dev
+ 1485  rustc --version
+ 1486  rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.6.linux-amd64.tar.gz
+ 1487  sudo rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.6.linux-amd64.tar.gz
+ 1488  cd Downloads
+ 1489  ls
+ 1490  sudo rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.6.linux-amd64.tar.gz
+ 1491  alias tar
+ 1492  tar --version
+ 1493  nano ~/.zshrc
+ 1494  extract go1.23.6.linux-amd64.tar.gz
+ 1495  sudo extract go1.23.6.linux-amd64.tar.gz
+ 1496  nano ~/.zshrc
+ 1497  extract go1.23.6.linux-amd64.tar.g
+ 1498  extract
+ 1499  nano ~/.zshrc
+ 1500  clear
+ 1501  exit
+ 1502  cd /usr/local
+ 1503  ls
+ 1504  mkdir tracking-BE
+ 1505  sudo mkdir tracking-BE
+ 1506  ls
+ 1507  rm -rf tracking-BE
+ 1508  sudo rm -rf tracking-BE
+ 1509  ls
+ 1510  clear
+ 1511  cd
+ 1512  cd Downloads
+ 1513  sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.6.linux-amd64.tar.gz
+ 1514  cd /usr/local
+ 1515  ls
+ 1516  cd
+ 1517  export PATH=$PATH:/usr/local/go/bin
+ 1518  go version
+ 1519  nano ~/.zshrc
+ 1520  clear
+ 1521  exit
+ 1522  cargo install spotify_player --locked
+ 1523  spotify_player
+ 1524  clear
+ 1525  exit
+ 1526  spotify_player
+ 1527  sudo spotify_player
+ 1528  clear
+ 1529  exit
+ 1530  history firebase

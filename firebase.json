@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"flikia-delivery","appId":"1:144400834860:android:cf7bdc734ec88f21c5cc89","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"flikia-delivery","configurations":{"android":"1:144400834860:android:cf7bdc734ec88f21c5cc89","ios":"1:144400834860:ios:30242204ae764d84c5cc89"}}}}}}
