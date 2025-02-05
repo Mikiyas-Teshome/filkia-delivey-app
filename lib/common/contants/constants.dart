@@ -9,5 +9,5 @@ class AppConstants {
   static const double borderRadius = 8.0;
   static const double borderWidth = 1.0;
   static const Color darkBgColor = Color(0xff272727);
-  static const String baseUrl = "http://138.197.17.213:3000/";
+  static const String baseUrl = "http://192.168.1.2:3000/";
 }

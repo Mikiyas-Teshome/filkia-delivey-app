@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../common/exceptions/unauthrised_exception.dart';
 import '../../../common/network/dio_client.dart';
@@ -49,6 +50,24 @@ class AuthRepository {
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ??
           'An error occurred during OTP verification');
+    }
+  }
+
+//send firebase token
+  Future<void> sendFirebaseToken() async {
+    try {
+      final fcmToken = await FirebaseMessaging.instance.getToken();
+      final response = await _dio.post(
+        '/auth/fcm-token',
+        data: {"fcmToken": fcmToken},
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception(response.data['message'] ?? 'Failed to send token');
+      }
+    } on DioException catch (e) {
+      throw Exception(e.response?.data['message'] ??
+          'An error occurred during sending firebase token');
     }
   }
 

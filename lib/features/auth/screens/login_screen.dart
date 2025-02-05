@@ -52,11 +52,7 @@ class LoginScreen extends StatelessWidget {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccess) {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   SnackBar(
-            //       content: Text(
-            //           'Welcome ${state.vendorData.firstName} ${state.vendorData.lastName}!')),
-            // );nology
+            AuthRepository(dioClient).sendFirebaseToken();
 
             Navigator.pushReplacement(
                 context,

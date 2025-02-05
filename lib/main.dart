@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,10 +20,44 @@ import 'features/auth/services/auth_service.dart';
 import 'features/auth/repository/auth_repository.dart';
 import 'features/home/blocs/home_navigation/home_navigation_bloc.dart';
 import 'features/home/screens/home_screen.dart';
+import 'firebase_options.dart';
+import 'push_notification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeService();
+
+  await Firebase.initializeApp(
+    name: 'my-app',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+final token = await FirebaseMessaging.instance.getToken();
+debugPrint("Device Token : ${token}");
+  // Listen to background Notifications
+  FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundMessage);
+
+  // Initialize Local Notifications
+  PushNotification.initLocalNotifications();
+
+  // Handle Foreground Notifications
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    String payloadString = jsonEncode(message.data);
+    if (message.notification != null) {
+      PushNotification.showNotification(
+        title: message.notification!.title!,
+        body: message.notification!.body!,
+        payload: payloadString,
+      );
+    }
+  });
+
+  // Handle Notification Tap
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    String payloadString = jsonEncode(message.data);
+    // PushNotification.onNotificationTap(NotificationResponse(
+    //   notificationResponseType: NotificationResponseType.selectedNotification,
+    // ), BuildContext context);
+  });
   final AuthService authService = AuthService(context: null);
   final bool isLoggedIn = await authService.isLoggedIn();
   final Brightness systemBrightness = PlatformDispatcher.instance.platformBrightness;
@@ -111,6 +148,12 @@ void onStart(ServiceInstance service) async {
     location.enableBackgroundMode(enable: false);
     service.stopSelf();
   });
+}
+// Background changes
+Future<void> _firebaseBackgroundMessage(RemoteMessage message) async {
+  if (message.notification != null) {
+    print("Notification: ${message.notification}");
+  }
 }
 
 class VendorApp extends StatefulWidget {
